@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Test;
@@ -117,12 +118,69 @@ public class ArraysTest {
 		
 		assertTrue(Arrays.deepEquals(a, a2));
 	}
+	
 	@Test
-	public void test_sort() {
-		Integer[] a = {1, 2, 3, 4, 5};
+	public void test_sort_int() {
+		int[] a = {3, 2, 4, 1, 5};
 		
-		//assertTrue(Arrays.sort(a);
+		Arrays.sort(a);
+		
+		assertArrayEquals(new int[]{1, 2, 3, 4, 5}, a);
 	}
 	
+	@Test
+	public void test_sort_char() {
+		char[] a = {'l', 'o', 'h', 'e', 'l'};
+		
+		Arrays.sort(a);
+		
+		assertArrayEquals(new char[]{'e', 'h', 'l', 'l', 'o'}, a);
+	}
 	
+	@Test
+	public void test_sort_int_from_to() {
+		int[] a = {3, 2, 4, 1, 5};
+		
+		Arrays.sort(a, 2, 4);
+		
+		assertArrayEquals(new int[]{3, 2, 1, 4, 5}, a);
+	}
+	
+	@Test
+	public void test_sort_with_comparator() {
+		Integer[] a = {3, 2, 4, 1, 5};
+		
+		class MyComparator implements Comparator<Integer> {
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				return o1.compareTo(o2);
+			}
+		}
+		
+		Arrays.sort(a, new MyComparator());
+		
+		assertArrayEquals(new Integer[]{1, 2, 3, 4, 5}, a);
+	}
+	
+	@Test
+	public void test_sort_with_comparator2() {
+		Integer[] a = {3, 2, 4, 1, 5};
+		
+		Arrays.sort(a, new Comparator<Integer>() {
+			public int compare(Integer o1, Integer o2) {
+				return o1.compareTo(o2);
+			}
+		});
+		
+		assertArrayEquals(new Integer[]{1, 2, 3, 4, 5}, a);
+	}
+	
+	@Test
+	public void test_sort_with_comparator3() {
+		Integer[] a = {3, 2, 4, 1, 5};
+		
+		Arrays.sort(a, (Integer o1, Integer o2) -> { return o1.compareTo(o2); });
+		
+		assertArrayEquals(new Integer[]{1, 2, 3, 4, 5}, a);
+	}
 }
