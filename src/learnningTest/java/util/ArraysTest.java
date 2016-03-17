@@ -101,6 +101,7 @@ public class ArraysTest {
 		int[] a2 = {1, 2, 3};
 		
 		assertTrue(Arrays.equals(a, a2));
+		assertFalse(a.equals(a2));
 	}
 	
 	@Test
